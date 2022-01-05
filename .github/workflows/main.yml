@@ -85,6 +85,7 @@ jobs:
           dockerfile: "C:\\aspnet\\Dockerfile"
         
           # Docker registry username
-          username: "${{ secrets.CONTAINER_REPO_USERNAME }}"
+          username: "remusadvanced"
+       #      username: "${{ secrets.CONTAINER_REPO_USERNAME }}"
           # Docker registry password
           password: "${{ secrets.CONTAINER_REPO_PASSWORD }}"
