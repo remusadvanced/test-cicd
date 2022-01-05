@@ -37,8 +37,8 @@ jobs:
           dotnet-version: '6.0.x'
           include-prerelease: true
 
-#       - name: Build with dotnet
-#         run: dotnet build ./aspnetapp.sln --configuration Release
+      - name: Build with dotnet
+        run: dotnet build ./aspnetapp.sln --configuration Release
         
 #       - name: Cache SonarQube packages
 #         uses: actions/cache@v1
