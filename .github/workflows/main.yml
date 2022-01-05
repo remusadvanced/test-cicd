@@ -67,4 +67,24 @@ jobs:
          .\.sonar\scanner\dotnet-sonarscanner begin /k:"cicd-test-key" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="http://localhost:9000"
          dotnet build ./aspnetapp.sln --configuration Release
          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+     
+#### Build Docker image
 
+      - name: Docker Build & Push Action
+  # You may pin to the exact commit or the version.
+  # uses: mr-smithers-excellent/docker-build-push@a7fe6652db5c7274374844e81692992f5a2befb9
+        uses: mr-smithers-excellent/docker-build-push@v5.6
+        with:
+        # Name of the Docker image
+          image: "remusadvanced/appmod-devops"
+          # Tags override for Docker image
+          tags:  "0.02"
+          # Target Docker registry
+          registry: "docker.io"
+          # Location of Dockerfile, if not Dockerfile in root directory
+          dockerfile: "C:\\aspnet\\Dockerfile"
+        
+          # Docker registry username
+          username: "${{ secrets.CONTAINER_REPO_USERNAME }}"
+          # Docker registry password
+          password: "${{ secrets.CONTAINER_REPO_PASSWORD }}"
