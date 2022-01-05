@@ -76,16 +76,17 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v5.6
         with:
         # Name of the Docker image
-          image: "remusadvanced/appmod-devops:0.02"
+          image: remusadvanced/appmod-devops
           # Tags override for Docker image
-          tags: ""
+          tags: 0.02
           # Target Docker registry
-          registry: "docker.io"
+          registry: ""
+        #  registry: docker.io
           # Location of Dockerfile, if not Dockerfile in root directory
-          dockerfile: "C:\\aspnet\\Dockerfile"
+          dockerfile: C:\\aspnet\\Dockerfile
         
           # Docker registry username
-          username: "remusadvanced"
+          username: remusadvanced
        #      username: "${{ secrets.CONTAINER_REPO_USERNAME }}"
           # Docker registry password
-          password: "${{ secrets.CONTAINER_REPO_PASSWORD }}"
+          password: ${{ secrets.CONTAINER_REPO_PASSWORD }}
