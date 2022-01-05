@@ -72,7 +72,7 @@ jobs:
       - name: Docker build aspnet
         shell: pwsh
         run: | 
-         docker login -u ${{ secret.CONTAINER_REPO_USERNAME }} -p ${{ secret.CONTAINER_REPO_PASSWORD }}
+         docker login -u "${{ secret.CONTAINER_REPO_USERNAME }}" -p "${{ secret.CONTAINER_REPO_PASSWORD }}"
          docker push remusadvanced/appmod-devops:0.02
 
         #  docker build -f "C:\aspnet\Dockerfile" -t remusadvanced/appmod-devops:0.02 .
