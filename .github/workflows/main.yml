@@ -84,3 +84,5 @@ jobs:
         run: | 
          $temp={{ secrets.ECS_TASK_DEFINITION }} | convertto-json -depth 20
          write-host temp
+         $temp2={{ secrets.ECS_TASK_DEFINITION }}
+         write-host temp2
