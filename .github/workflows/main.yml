@@ -60,8 +60,7 @@ jobs:
 #          New-Item -Path .\.sonar\scanner -ItemType Directory
 #          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 #       - name: Build and analyze
-#   #      env:
-#   #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+
 #         shell: pwsh
 #         run: |
 #          .\.sonar\scanner\dotnet-sonarscanner begin /k:"cicd-test-key" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="http://localhost:9000"
@@ -69,11 +68,18 @@ jobs:
 #          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
      
 #### Build Docker image
-      - name: Docker build aspnet
+#       - name: Docker build aspnet
+#         shell: pwsh
+#         run: | 
+
+#          docker build -f "C:\aspnet\Dockerfile" -t remusadvanced/appmod-devops:0.0.${{GITHUB.RUN_NUMBER }} .
+#          docker login -u "${{ secrets.CONTAINER_REPO_USERNAME }}" -p "${{ secrets.CONTAINER_REPO_PASSWORD }}"
+#          docker push remusadvanced/appmod-devops:0.0.${{GITHUB.RUN_NUMBER }}
+ 
+     
+#### Create a task definition in AWS ECS 
+
+      - name: Update the task definition
         shell: pwsh
         run: | 
-
-         docker build -f "C:\aspnet\Dockerfile" -t remusadvanced/appmod-devops:0.0.${{GITHUB.RUN_NUMBER }} .
-         docker login -u "${{ secrets.CONTAINER_REPO_USERNAME }}" -p "${{ secrets.CONTAINER_REPO_PASSWORD }}"
-         docker push remusadvanced/appmod-devops:0.0.${{GITHUB.RUN_NUMBER }}
-     #     docker build -f "C:\aspnet\Dockerfile" -t remusadvanced/appmod-devops:0.02 .
+          write-host ${{ ECS_TASK_DEFINITION }}
