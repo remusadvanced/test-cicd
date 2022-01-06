@@ -82,4 +82,4 @@ jobs:
       - name: Update the task definition
         shell: pwsh
         run: | 
-          write-host ${{ ECS_TASK_DEFINITION }}
+          write-host ${{ secrets.ECS_TASK_DEFINITION }}
