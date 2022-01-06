@@ -82,7 +82,5 @@ jobs:
       - name: Update the task definition
         shell: pwsh
         run: | 
-         $temp={{ secrets.ECS_TASK_DEFINITION }} | convertto-json -depth 20
-         write-host temp
-         $temp2={{ secrets.ECS_TASK_DEFINITION }}
+         $temp2 = {{ secrets.ECS_TASK_DEFINITION }}
          write-host temp2
