@@ -83,4 +83,4 @@ jobs:
         shell: pwsh
         run: | 
          $temp2 = {{ secrets.ECS_TASK_DEFINITION }}
-         write-host temp2
+         write-host $temp2
