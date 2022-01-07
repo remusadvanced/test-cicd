@@ -68,13 +68,12 @@ jobs:
 #          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
      
 #### Build Docker image
-#       - name: Docker build aspnet
-#         shell: pwsh
-#         run: | 
-
-#          docker build -f "C:\aspnet\Dockerfile" -t remusadvanced/appmod-devops:0.0.${{GITHUB.RUN_NUMBER }} .
-#          docker login -u "${{ secrets.CONTAINER_REPO_USERNAME }}" -p "${{ secrets.CONTAINER_REPO_PASSWORD }}"
-#          docker push remusadvanced/appmod-devops:0.0.${{GITHUB.RUN_NUMBER }}
+      - name: Docker build aspnet
+        shell: pwsh
+        run: | 
+          docker build -f "C:\aspnet\Dockerfile" -t remusadvanced/appmod-devops:0.0.${{GITHUB.RUN_NUMBER }} .
+          docker login -u "${{ secrets.CONTAINER_REPO_USERNAME }}" -p "${{ secrets.CONTAINER_REPO_PASSWORD }}"
+          docker push remusadvanced/appmod-devops:0.0.${{GITHUB.RUN_NUMBER }}
  
      
 #### Create a task definition in AWS ECS 
@@ -82,6 +81,5 @@ jobs:
       - name: Update the task definition
         shell: pwsh
         run: | 
-         $temp2 = ${{ secrets.ECS_TASK_DEFINITION }}
-         write-host $temp2 
+          aws ecs register-task-definition --runtime-platform operatingSystemFamily="LINUX" --family "aspnetapp" --task-role-arn "arn:aws:iam::069705096352:role/ecsTaskExecutionRole" --execution-role-arn "arn:aws:iam::069705096352:role/ecsTaskExecutionRole" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --cpu 256 --memory 512 --container-definitions '"[{\"portMappings\": [{\"hostPort\": 80,\"protocol\": \"tcp\",\"containerPort\": 80}],\"cpu\": 0, \"memory\": 10,\"image\": \"docker.io/remusadvanced/appmod-devops:0.0.${{ GITHUB.RUN_NUMBER }}\",\"name\": \"aspnetapp\"}]"'
 
